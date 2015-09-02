@@ -31,6 +31,7 @@ namespace eZet.EveLib.EveCrestModule.Models.Resources {
         /// <summary>
         ///     Class Alliance.
         /// </summary>
+        [DataContract]
         public class Alliance : LinkedEntity<Resources.Alliance> {
             /// <summary>
             ///     Gets or sets the short name.
@@ -38,6 +39,22 @@ namespace eZet.EveLib.EveCrestModule.Models.Resources {
             /// <value>The short name.</value>
             [DataMember(Name = "shortName")]
             public string ShortName { get; set; }
+
+        }
+
+        /// <summary>
+        /// Class HrefWrapper.
+        /// </summary>
+        [DataContract]
+        public class HrefWrapper {
+
+            /// <summary>
+            /// Gets or sets the alliance.
+            /// </summary>
+            /// <value>The alliance.</value>
+            [DataMember(Name = "href")]
+            public Alliance Alliance { get; set; }
+            
         }
     }
 }

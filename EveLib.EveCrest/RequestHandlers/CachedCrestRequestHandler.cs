@@ -24,7 +24,7 @@ namespace eZet.EveLib.EveCrestModule.RequestHandlers {
         /// <summary>
         ///     The default public max concurrent requests
         /// </summary>
-        public const int DefaultPublicMaxConcurrentRequests = 1;
+        public const int DefaultPublicMaxConcurrentRequests = 10;
 
         /// <summary>
         ///     The default authed max concurrent requests
@@ -220,6 +220,7 @@ namespace eZet.EveLib.EveCrestModule.RequestHandlers {
 
         private static DateTime getCacheExpirationTime(NameValueCollection header) {
             string cache = header.Get("Cache-Control");
+            if (cache == null) return DateTime.UtcNow;
             string str = cache.Substring(cache.IndexOf('=') + 1);
             int sec = int.Parse(str);
             return DateTime.UtcNow.AddSeconds(sec);

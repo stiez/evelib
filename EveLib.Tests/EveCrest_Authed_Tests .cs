@@ -25,7 +25,7 @@ namespace eZet.EveLib.Test {
 
         private const string Killmail = "30290604/787fb3714062f1700560d4a83ce32c67640b1797";
 
-        private const string RefreshToken = "ldF1J8ny_fEjLKyyG4yixGjU8Hi4XCA-5cAdDCzlzNw1";
+        private const string RefreshToken = "E9nZjXvx_tFu-PdpTC6yT_j4FupJ-84ybEtNsE8iMko1";
 
         private const string EncodedKey =
             "NDZkYWEyYjM3OGJkNGJjMTg5ZGY0YzNhNzNhZjIyNmE6SzhHY1dBRGxqZ25MWnlyS0dGZmlxekhWdlZpR2hhcE9ZU0NFeTgzaA==";
@@ -42,31 +42,31 @@ namespace eZet.EveLib.Test {
             crest.EnableAutomaticPaging = true;
         }
 
-        [TestMethod]
-        public void CollectionPaging_Automatic() {
-            IEnumerable<Alliance> result =
-                crest.GetRoot().Query(r => r.Alliances).Query(r => r.Where(f => f.ShortName == "1"));
-            Debug.WriteLine(result.FirstOrDefault());
-        }
+        //[TestMethod]
+        //public void CollectionPaging_Automatic() {
+        //    IEnumerable<Alliance> result =
+        //        crest.GetRoot().Query(r => r.Alliances).Query(r => r.Where(f => f.Name == "Brave Collective"));
+        //    Debug.WriteLine(result.FirstOrDefault());
+        //}
 
-        [TestMethod]
-        public void CollectionPaging_Manual() {
-            AllianceCollection allianceLinks = crest.GetRoot().Query(r => r.Alliances);
-            AllianceCollection.Alliance alliance = allianceLinks.Items.SingleOrDefault(f => f.Id == 99000738);
-            while (alliance == null && allianceLinks.Next != null) {
-                allianceLinks = allianceLinks.Query(f => f.Next);
-                alliance = allianceLinks.Items.SingleOrDefault(f => f.Id == 99000738);
-            }
-            Debug.WriteLine(allianceLinks.Query(f => alliance).Name);
-        }
+        //[TestMethod]
+        //public void CollectionPaging_Manual() {
+        //    AllianceCollection allianceLinks = crest.GetRoot().Query(r => r.Alliances);
+        //    AllianceCollection.Alliance alliance = allianceLinks.Items.SingleOrDefault(f => f.Id == 99000738);
+        //    while (alliance == null && allianceLinks.Next != null) {
+        //        allianceLinks = allianceLinks.Query(f => f.Next);
+        //        alliance = allianceLinks.Items.SingleOrDefault(f => f.Id == 99000738);
+        //    }
+        //    Debug.WriteLine(allianceLinks.Query(f => alliance).Name);
+        //}
 
-        [TestMethod]
-        public void CollectionPaging_Manual_NullReference() {
-            AllianceCollection allianceLinks = crest.GetRoot().Query(r => r.Alliances);
-            AllianceCollection.Alliance alliance = allianceLinks.Items.SingleOrDefault(f => f.Id == 99000738);
-            alliance = null;
-            allianceLinks.Query(f => alliance);
-        }
+        //[TestMethod]
+        //public void CollectionPaging_Manual_NullReference() {
+        //    AllianceCollection allianceLinks = crest.GetRoot().Query(r => r.Alliances);
+        //    AllianceCollection.Alliance alliance = allianceLinks.Items.SingleOrDefault(f => f.Id == 99000738);
+        //    alliance = null;
+        //    allianceLinks.Query(f => alliance);
+        //}
 
         [TestMethod]
         public async Task RefreshAccessTokenAsync() {

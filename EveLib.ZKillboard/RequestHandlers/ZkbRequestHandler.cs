@@ -66,15 +66,15 @@ namespace eZet.EveLib.ZKillboardModule.RequestHandlers {
 
             if (CacheLevel == CacheLevel.CacheOnly) return default(T);
             DateTime cacheTime;
-            int requestCount = 0, maxRequests = 0;
+            int requestCount, maxRequests;
             HttpWebRequest request = HttpRequestHelper.CreateRequest(uri);
 
             using (
                 HttpWebResponse response = await HttpRequestHelper.GetResponseAsync(request).ConfigureAwait(false)) {
                 data = await HttpRequestHelper.GetResponseContentAsync(response).ConfigureAwait(false);
                 cacheTime = DateTime.Parse(response.GetResponseHeader("Expires"));
-                requestCount = int.Parse(response.GetResponseHeader("X-Bin-Request-Count"));
-                maxRequests = int.Parse(response.GetResponseHeader("X-Bin-Max-Requests"));
+                int.TryParse(response.GetResponseHeader("X-Bin-Request-Count"), out requestCount);
+                int.TryParse(response.GetResponseHeader("X-Bin-Max-Requests"), out maxRequests);
             }
             if (CacheLevel == CacheLevel.Default || CacheLevel == CacheLevel.Refresh)
                 await Cache.StoreAsync(uri, cacheTime.ToUniversalTime(), data).ConfigureAwait(false);
